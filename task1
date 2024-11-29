@@ -1,0 +1,121 @@
+/*it includes indexhtml and css java */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/projects">Projects</a>
+            <a href="/blog">Blog</a>
+            <a href="/add">Add Content</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Projects</h2>
+            <ul>
+                {% for project in projects %}
+                    <li><strong>{{ project.title }}</strong>: {{ project.description }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section>
+            <h2>Blog Posts</h2>
+            <ul>
+                {% for blog in blogs %}
+                    <li><strong>{{ blog.title }}</strong>: {{ blog.content }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
+
+
+from flask import Flask, render_template, request, redirect, url_for
+
+app = Flask(_name_)
+
+# Sample data for projects and blogs
+projects = [
+    {"title": "Portfolio Website", "description": "A responsive portfolio website with backend."},
+    {"title": "E-commerce App", "description": "An online shopping app with payment integration."}
+]
+
+blogs = [
+    {"title": "Why Learn Flask?", "content": "Flask is lightweight and easy to learn for web development."},
+    {"title": "Frontend vs Backend", "content": "Exploring the differences between frontend and backend development."}
+]
+
+@app.route("/")
+def home():
+    return render_template("index.html", projects=projects, blogs=blogs)
+
+@app.route("/projects")
+def project_page():
+    return render_template("projects.html", projects=projects)
+
+@app.route("/blog")
+def blog_page():
+    return render_template("blog.html", blogs=blogs)
+
+@app.route("/add", methods=["GET", "POST"])
+def add_content():
+    if request.method == "POST":
+        content_type = request.form["content_type"]
+        title = request.form["title"]
+        description = request.form["description"]
+
+        if content_type == "project":
+            projects.append({"title": title, "description": description})
+        elif content_type == "blog":
+            blogs.append({"title": title, "content": description})
+        return redirect(url_for("home"))
+    return render_template("add_content.html")
+
+if _name_ == "_main_":
+    app.run(debug=True)
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+header nav a {
+    color: #fff;
+    margin: 0 1rem;
+    text-decoration: none;
+}
+
+main {
+    padding: 2rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 0.5rem 0;
+}
+
+
+Flask==2.1.3
