@@ -8,6 +8,8 @@ MENTOR:Neela Santosh kumar
 
 Overview of the project
 A personal portfolio website with a backend to manage projects and blog posts, showcasing skills with responsive design and interactivity.
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/ed88c3f7-d4a9-4980-ad8d-7d8a7d5ec165">
+
 
 OBJECTIVES
 1. Showcase Skills and Projects: Create a platform to display personal achievements, projects, and blogs, reflecting technical and creative abilities.
